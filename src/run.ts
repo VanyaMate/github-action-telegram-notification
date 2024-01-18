@@ -21,8 +21,9 @@ export async function run (): Promise<void> {
         const date: string       = new Date().toLocaleString();
         const author: string     = context.actor;
         const repository: string = context.payload.repository?.full_name ?? '';
-        const branch: string     = context.workflow;
+        const branch: string     = context.ref;
         const commit: string     = context.sha;
+        const action: string     = context.action;
 
         debug('success ' + success.toString());
         debug('date ' + date.toString());
@@ -30,13 +31,16 @@ export async function run (): Promise<void> {
         debug('repository ' + repository.toString());
         debug('branch ' + branch.toString());
         debug('commit ' + commit.toString());
+        debug('action ' + action);
 
-        console.log('success ' + success.toString());
-        console.log('date ' + date.toString());
-        console.log('author ' + author.toString());
-        console.log('repository ' + repository.toString());
-        console.log('branch ' + branch.toString());
-        console.log('commit ' + commit.toString());
+        /*        console.log('success ' + success.toString());
+         console.log('date ' + date.toString());
+         console.log('author ' + author.toString());
+         console.log('repository ' + repository.toString());
+         console.log('branch ' + branch.toString());
+         console.log('commit ' + commit.toString());*/
+
+        console.log('actiion ' + action);
 
         // TG Data
         const tgBotToken: string = getInput(TELEGRAM_BOT_TOKEN, { required: true });
@@ -57,7 +61,7 @@ export async function run (): Promise<void> {
         }) ?? 'Empty message';
 
         debug('message ' + message);
-        console.log('message ' + message);
+        /*        console.log('message ' + message);*/
 
         await notification.notify(tgChatId, message);
 
