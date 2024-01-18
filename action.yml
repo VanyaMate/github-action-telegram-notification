@@ -1,0 +1,19 @@
+name: 'VM Telegram notification'
+description: 'Simple telegram notificator'
+inputs:
+  success: # id of input
+    description: 'Action status'
+    required: true
+    default: 'error'
+  tg_bot_token:
+    description: 'Telegram bot auth-token'
+    required: true
+  tg_chat_id:
+    description: 'Telegram chat id'
+    required: true
+outputs:
+  Notified: # id of output
+    description: 'Notified status'
+runs:
+  using: 'node20'
+  main: './src/run.ts'
