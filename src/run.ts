@@ -31,6 +31,13 @@ export async function run (): Promise<void> {
         debug('branch ' + branch.toString());
         debug('commit ' + commit.toString());
 
+        console.log('success ' + success.toString());
+        console.log('date ' + date.toString());
+        console.log('author ' + author.toString());
+        console.log('repository ' + repository.toString());
+        console.log('branch ' + branch.toString());
+        console.log('commit ' + commit.toString());
+
         // TG Data
         const tgBotToken: string = getInput(TELEGRAM_BOT_TOKEN, { required: true });
         const tgChatId: string   = getInput(TELEGRAM_CHAT_ID, { required: true });
@@ -47,9 +54,10 @@ export async function run (): Promise<void> {
         const messageGenerator: IMessageGenerator = new SimpleMessageGenerator();
         const message: string                     = messageGenerator.generate({
             success: success === 'success', date, author, commit, branch, repository,
-        });
+        }) ?? 'Empty message';
 
         debug('message ' + message);
+        console.log('message ' + message);
 
         await notification.notify(tgChatId, message);
 
