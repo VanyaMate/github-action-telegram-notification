@@ -4,8 +4,7 @@
     "description": "",
     "main": "dist/run.js",
     "scripts": {
-        "build": "tsc",
-        "release": "npm clean && npm i && npm build"
+        "build": "tsc"
     },
     "keywords": [],
     "author": "VanyaMate",
