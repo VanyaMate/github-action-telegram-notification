@@ -16,4 +16,4 @@ outputs:
     description: 'Notified status'
 runs:
   using: 'node20'
-  main: 'dist/run.js'
+  main: './dist/run.js'

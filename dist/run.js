@@ -16,7 +16,7 @@ const inputs_1 = require("./constants/inputs");
 const telegram_notification_1 = require("./notificator/implementations/telegram-notification");
 const simple_message_generator_1 = require("./message-generator/implementations/simple-message-generator");
 function run() {
-    var _a, _b;
+    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // Data
@@ -32,6 +32,12 @@ function run() {
             (0, core_1.debug)('repository ' + repository.toString());
             (0, core_1.debug)('branch ' + branch.toString());
             (0, core_1.debug)('commit ' + commit.toString());
+            console.log('success ' + success.toString());
+            console.log('date ' + date.toString());
+            console.log('author ' + author.toString());
+            console.log('repository ' + repository.toString());
+            console.log('branch ' + branch.toString());
+            console.log('commit ' + commit.toString());
             // TG Data
             const tgBotToken = (0, core_1.getInput)(inputs_1.TELEGRAM_BOT_TOKEN, { required: true });
             const tgChatId = (0, core_1.getInput)(inputs_1.TELEGRAM_CHAT_ID, { required: true });
@@ -43,10 +49,11 @@ function run() {
             }
             const notification = new telegram_notification_1.TelegramNotification(tgBotToken);
             const messageGenerator = new simple_message_generator_1.SimpleMessageGenerator();
-            const message = messageGenerator.generate({
+            const message = (_c = messageGenerator.generate({
                 success: success === 'success', date, author, commit, branch, repository,
-            });
+            })) !== null && _c !== void 0 ? _c : 'Empty message';
             (0, core_1.debug)('message ' + message);
+            console.log('message ' + message);
             yield notification.notify(tgChatId, message);
             (0, core_1.setOutput)('Notified', true);
         }
