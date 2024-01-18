@@ -1,10 +1,16 @@
 export type MessageGeneratorProps = {
     success: boolean;
     date: string;
-    author: string;
-    repository: string;
+    repositoryOwner: string;
+    repositoryName: string;
+    repositoryUrl: string;
+    commitTitle: string;
+    commiterUserName: string;
+    commitId: string;
+    compareUrl: string;
     branch: string;
-    commit: string;
+    size: number;
+    actionId: string;
 }
 
 export interface IMessageGenerator {

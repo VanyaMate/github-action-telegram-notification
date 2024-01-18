@@ -19,21 +19,21 @@ export async function run (): Promise<void> {
         // Data
         const success: string    = getInput(SUCCESS, { required: true });
         const date: string       = new Date().toLocaleString();
-        const author: string     = context.actor;
+        const author: string     = context.payload.commits[0].author.username;
         const repository: string = context.payload.repository?.full_name ?? '';
         const branch: string     = context.ref;
-        const commit: string     = context.sha;
-        const action: string     = context.action;
+        const commitId: string   = context.sha;
+        const action: string     = context.runId.toString();
 
 
-        console.log(JSON.stringify(context));
-        console.log('success ' + success.toString());
-        console.log('date ' + date.toString());
-        console.log('author ' + author.toString());
-        console.log('repository ' + repository.toString());
-        console.log('branch ' + branch.toString());
-        console.log('commit ' + commit.toString());
-        console.log('action ' + action);
+        debug(JSON.stringify(context));
+        debug('success ' + success.toString());
+        debug('date ' + date.toString());
+        debug('author ' + author.toString());
+        debug('repository ' + repository.toString());
+        debug('branch ' + branch.toString());
+        debug('commitId ' + commitId.toString());
+        debug('action ' + action);
 
         // TG Data
         const tgBotToken: string = getInput(TELEGRAM_BOT_TOKEN, { required: true });
@@ -50,10 +50,22 @@ export async function run (): Promise<void> {
         const notification: INotificator          = new TelegramNotification(tgBotToken);
         const messageGenerator: IMessageGenerator = new SimpleMessageGenerator();
         const message: string                     = messageGenerator.generate({
-            success: success === 'success', date, author, commit, branch, repository,
-        }) ?? 'Empty message';
+                success         : success === 'success',
+                date,
+                commiterUserName: author,
+                commitId        : commitId,
+                branch,
+                repositoryOwner : context.payload['repository'].owner.login,
+                repositoryName  : context.payload['repository'].name,
+                repositoryUrl   : context.payload['repository'].html_url,
+                actionId        : action,
+                compareUrl      : context.payload.compare,
+                size            : 0,
+                commitTitle     : context.payload.commits[0].message,
+            }) ??
+            'Empty message';
 
-        console.log('message ' + message);
+        debug('message ' + message);
 
         await notification.notify(tgChatId, message);
 
