@@ -1,6 +1,9 @@
 name: 'VM Telegram notification'
 description: 'Simple telegram notificator'
 author: 'VanyaMate'
+branding:
+  icon: arrow-up-circle
+  color: blue
 
 inputs:
   success: # id of input
