@@ -25,6 +25,7 @@ export async function run (): Promise<void> {
         const commit: string     = context.sha;
         const action: string     = context.action;
 
+        debug(JSON.stringify(context));
         debug('success ' + success.toString());
         debug('date ' + date.toString());
         debug('author ' + author.toString());

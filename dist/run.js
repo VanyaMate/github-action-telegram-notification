@@ -27,6 +27,7 @@ function run() {
             const branch = github_1.context.ref;
             const commit = github_1.context.sha;
             const action = github_1.context.action;
+            (0, core_1.debug)(JSON.stringify(github_1.context));
             (0, core_1.debug)('success ' + success.toString());
             (0, core_1.debug)('date ' + date.toString());
             (0, core_1.debug)('author ' + author.toString());
