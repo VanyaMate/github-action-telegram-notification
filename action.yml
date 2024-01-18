@@ -1,6 +1,7 @@
 name: 'VM Telegram notification'
 description: 'Simple telegram notificator'
 author: 'VanyaMate'
+
 inputs:
   success: # id of input
     description: 'Action status'
@@ -12,9 +13,11 @@ inputs:
   tg_chat_id:
     description: 'Telegram chat id'
     required: true
+
 outputs:
   Notified: # id of output
     description: 'Notified status'
+
 runs:
-  using: 'node12'
-  main: 'dist/run.js'
+  using: 'node20'
+  main: 'dist/index.js'

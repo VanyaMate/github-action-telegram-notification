@@ -1,4 +1,4 @@
-import { getInput, setOutput, setFailed, debug } from '@actions/core';
+import { getInput, setOutput, setFailed, debug, isDebug } from '@actions/core';
 import { context } from '@actions/github';
 import {
     SUCCESS,
