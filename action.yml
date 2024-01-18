@@ -1,5 +1,6 @@
 name: 'VM Telegram notification'
 description: 'Simple telegram notificator'
+author: 'VanyaMate'
 inputs:
   success: # id of input
     description: 'Action status'
