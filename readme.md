@@ -25,7 +25,7 @@ Notified status
 ## Example usage
 
 ```yaml
-  - uses: VanyaMate/github-action-telegram-notification@v0
+  - uses: VanyaMate/github-action-telegram-notification@v0.1
     with:
       success: ${{ job.status }}
       tg_bot_token: ${{ secrets.TG_TOKEN_BOT }}
