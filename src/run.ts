@@ -20,7 +20,7 @@ export async function run (): Promise<void> {
         const success: string    = getInput(SUCCESS, { required: true });
         const date: string       = new Date().toLocaleString();
         const author: string     = context.actor;
-        const repository: string = context.payload.repository.full_name;
+        const repository: string = context.payload.repository?.full_name ?? '';
         const branch: string     = context.workflow;
         const commit: string     = context.sha;
 
