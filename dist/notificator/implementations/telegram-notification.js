@@ -35,6 +35,7 @@ class TelegramNotification {
                 body: {
                     chat_id: chatId,
                     text: text,
+                    parse_mode: 'Markdown',
                 },
                 json: true,
             }, (error, response, body) => {

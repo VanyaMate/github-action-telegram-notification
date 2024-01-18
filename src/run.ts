@@ -1,4 +1,4 @@
-import { getInput, setOutput, setFailed } from '@actions/core';
+import { getInput, setOutput, setFailed, debug } from '@actions/core';
 import { context } from '@actions/github';
 import {
     SUCCESS,
@@ -24,6 +24,13 @@ export async function run (): Promise<void> {
         const branch: string     = context.workflow;
         const commit: string     = context.sha;
 
+        debug('success ' + success.toString());
+        debug('date ' + date.toString());
+        debug('author ' + author.toString());
+        debug('repository ' + repository.toString());
+        debug('branch ' + branch.toString());
+        debug('commit ' + commit.toString());
+
         // TG Data
         const tgBotToken: string = getInput(TELEGRAM_BOT_TOKEN, { required: true });
         const tgChatId: string   = getInput(TELEGRAM_CHAT_ID, { required: true });
@@ -38,10 +45,13 @@ export async function run (): Promise<void> {
 
         const notification: INotificator          = new TelegramNotification(tgBotToken);
         const messageGenerator: IMessageGenerator = new SimpleMessageGenerator();
-
-        await notification.notify(tgChatId, messageGenerator.generate({
+        const message: string                     = messageGenerator.generate({
             success: success === 'success', date, author, commit, branch, repository,
-        }));
+        });
+
+        debug('message ' + message);
+
+        await notification.notify(tgChatId, message);
 
         setOutput('Notified', true);
     } catch (error) {

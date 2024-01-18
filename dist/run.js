@@ -26,6 +26,12 @@ function run() {
             const repository = (_b = (_a = github_1.context.payload.repository) === null || _a === void 0 ? void 0 : _a.full_name) !== null && _b !== void 0 ? _b : '';
             const branch = github_1.context.workflow;
             const commit = github_1.context.sha;
+            (0, core_1.debug)('success ' + success.toString());
+            (0, core_1.debug)('date ' + date.toString());
+            (0, core_1.debug)('author ' + author.toString());
+            (0, core_1.debug)('repository ' + repository.toString());
+            (0, core_1.debug)('branch ' + branch.toString());
+            (0, core_1.debug)('commit ' + commit.toString());
             // TG Data
             const tgBotToken = (0, core_1.getInput)(inputs_1.TELEGRAM_BOT_TOKEN, { required: true });
             const tgChatId = (0, core_1.getInput)(inputs_1.TELEGRAM_CHAT_ID, { required: true });
@@ -37,9 +43,11 @@ function run() {
             }
             const notification = new telegram_notification_1.TelegramNotification(tgBotToken);
             const messageGenerator = new simple_message_generator_1.SimpleMessageGenerator();
-            yield notification.notify(tgChatId, messageGenerator.generate({
+            const message = messageGenerator.generate({
                 success: success === 'success', date, author, commit, branch, repository,
-            }));
+            });
+            (0, core_1.debug)('message ' + message);
+            yield notification.notify(tgChatId, message);
             (0, core_1.setOutput)('Notified', true);
         }
         catch (error) {
