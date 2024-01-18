@@ -10,8 +10,9 @@ export class TelegramNotification implements INotificator {
         return new Promise((resolve, reject) => {
             request.post(this._getSendNotificationUrl(this._botId), {
                 body: {
-                    chat_id: chatId,
-                    text   : text,
+                    chat_id   : chatId,
+                    text      : text,
+                    parse_mode: 'Markdown',
                 },
                 json: true,
             }, (error, response, body) => {
